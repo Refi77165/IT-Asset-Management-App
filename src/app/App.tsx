@@ -58,7 +58,7 @@ export default function App() {
         className="flex flex-col shrink-0 transition-all duration-200 overflow-hidden"
         style={{
           width: sidebarOpen ? 240 : 64,
-          background: 'linear-gradient(180deg, #1e1b4b 0%, #312e81 100%)',
+          background: 'linear-gradient(180deg, #1b4b23 0%, #312e81 100%)',
         }}
       >
         {/* Sidebar Header */}
