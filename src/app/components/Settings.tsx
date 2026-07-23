@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useState } from 'react';
 import { Plus, Trash2, Save, AlertTriangle } from 'lucide-react';
 import { AppSettings } from '../types';
@@ -15,6 +16,19 @@ export function Settings({ settings, onUpdate, onReset }: Props) {
   const [newCat, setNewCat] = useState('');
   const [newDept, setNewDept] = useState('');
   const [confirmReset, setConfirmReset] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) {
+    showToast('error', 'File harus berupa gambar');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => setForm(f => ({ ...f, logoUrl: reader.result as string }));
+  reader.readAsDataURL(file);
+}
 
   function save() {
     onUpdate(form);
@@ -67,6 +81,33 @@ export function Settings({ settings, onUpdate, onReset }: Props) {
           <div>
             <label className={labelCls}>Company Name</label>
             <input value={form.companyName} onChange={e => setForm(f => ({ ...f, companyName: e.target.value }))} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>App Logo</label>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                {form.logoUrl
+                  ? <img src={form.logoUrl} alt="Logo" className="w-full h-full object-contain" />
+                  : <span className="text-xs text-slate-400">No Logo</span>}
+              </div>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="px-3 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                Change Logo
+              </button>
+              {form.logoUrl && (
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, logoUrl: '' }))}
+                  className="text-xs text-red-500 hover:underline"
+                >
+                  Delete Logo
+                </button>
+              )}
+              <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleLogoChange} />
+            </div>
           </div>
           <div>
             <label className={labelCls}>Default Currency</label>

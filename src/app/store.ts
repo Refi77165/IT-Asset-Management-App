@@ -5,6 +5,7 @@ import { sampleUsers, sampleLocations, sampleAssets, sampleAssignments, sampleAc
 const DEFAULT_SETTINGS: AppSettings = {
   appName: 'IT Asset Manager',
   companyName: 'Acme Corporation',
+  logoUrl: '',
   assetPrefix: 'AST-',
   userPrefix: 'USR-',
   locationPrefix: 'LOC-',

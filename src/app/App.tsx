@@ -66,8 +66,10 @@ export default function App() {
           {sidebarOpen ? (
             <>
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center shrink-0">
-                  <Monitor size={15} className="text-white" />
+                <div className="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center shrink-0 overflow-hidden">
+                  {data.settings.logoUrl
+                    ? <img src={data.settings.logoUrl} alt="Logo" className="w-full h-full object-cover" />
+                    : <Monitor size={15} className="text-white" />}
                 </div>
                 <div className="min-w-0">
                   <div className="text-sm font-semibold text-white truncate leading-tight">{data.settings.appName}</div>
