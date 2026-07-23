@@ -73,6 +73,7 @@ export interface ActivityLog {
 export interface AppSettings {
   appName: string;
   companyName: string;
+  logoUrl: string;
   assetPrefix: string;
   userPrefix: string;
   locationPrefix: string;
